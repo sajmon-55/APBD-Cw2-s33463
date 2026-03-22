@@ -10,6 +10,8 @@
 
     <ItemGroup>
       <Folder Include="Exceptions\" />
+      <Folder Include="Models\Equipments\" />
+      <Folder Include="Models\Users\" />
       <Folder Include="Services\" />
     </ItemGroup>
 
