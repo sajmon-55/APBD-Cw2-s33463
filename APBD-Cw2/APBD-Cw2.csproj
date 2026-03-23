@@ -9,8 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Exceptions\" />
-      <Folder Include="Services\" />
+      <Folder Include="Models\Equipments\" />
     </ItemGroup>
 
 </Project>
