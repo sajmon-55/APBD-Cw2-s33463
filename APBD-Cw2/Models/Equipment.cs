@@ -10,4 +10,5 @@ public abstract class Equipment(string name, EquipmentType equipmentType)
     public string Name { get; set; } = name;
     public EquipmentStatus Status { get; set; } = EquipmentStatus.Available;
     public EquipmentType Type { get; } = equipmentType;
+    public bool IsDamaged { get; set; } = false;
 }
