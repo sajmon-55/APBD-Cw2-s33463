@@ -9,15 +9,9 @@ public class Rental(Equipment equipment, User user, DateTime from, DateTime to)
     public User User { get; } = user;
     public DateTime From { get; } = from >= to ? throw new ArgumentException("Invalid time range") : from;
     public DateTime To { get; } = to;
-    public double Penalty { get; set; } = 0;
-    public bool isCancelled { get; private set; } = false;
+    public int RentalDays { get; } = to.Day - from.Day;
+    public decimal Penalty { get; set; }
+    public bool IsExpired => Penalty > 0;
+    public bool HasEnded { get; set; } = false;
     
-    public void Cancel()
-    {
-        isCancelled = true;
-    }
-    public void SetPenalty(double penalty)
-    {
-        Penalty = penalty;
-    }
 }

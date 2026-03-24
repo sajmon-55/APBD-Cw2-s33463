@@ -10,18 +10,18 @@ public class RentalService : IRentalService
     
     public void CreateRental(User user, Equipment equipment, DateTime from, DateTime to)
     {
-        if (equipment.Status != EquipmentStatus.Available)
+        if (equipment.Status != EquipmentStatus.Unavailable)
             throw new EquipmentUnavailableException(equipment.Id);
 
         int activeUsersRentals = _rentals.Count(r => 
-            !r.isCancelled && r.User == user
+            r.User == user
         );
         
         if (activeUsersRentals >= user.GetMaxRentals())
             throw new TooManyRentsException(activeUsersRentals);
 
         bool rentalConflict = _rentals.Any(r =>
-            !r.isCancelled && r.Equipment == equipment
+            r.Equipment == equipment
         );
         if (rentalConflict)
             throw new RentalConflictException(equipment.Id, from, to);
@@ -29,19 +29,18 @@ public class RentalService : IRentalService
         var newRental = new Rental(equipment, user, from, to);
         _rentals.Add(newRental);
     }
-
-    public void CancelRental(int rentalId)
+    public void ReturnEquipment(int rentalId, DateTime date)
     {
         var rental = _rentals.FirstOrDefault(r => r.Id == rentalId);
-
         if (rental is null)
-        {
             throw new RentalNotFoundException(rentalId);
-        }
-        rental.Cancel();
+        
+        rental.Equipment.Status = EquipmentStatus.Available;
+        CalculatePenalty(rentalId, date);
+        rental.HasEnded = true;
     }
 
-    public void CalculatePenalty(int rentalId, DateTime actualReturn)
+    public void CalculatePenalty(int rentalId, DateTime date)
     {
         var rental = _rentals.FirstOrDefault(r => r.Id == rentalId);
         if (rental is null)
@@ -49,11 +48,11 @@ public class RentalService : IRentalService
             throw new RentalNotFoundException(rentalId);
         }
 
-        if (actualReturn > rental.To)
+        if (date > rental.To)
         {
-            var delay = (actualReturn - rental.To).Days;
-            double penalty = 5.5 * delay;
-            rental.SetPenalty(penalty);
+            var delay = (date - rental.To).Days;
+            decimal penalty = (decimal)(5.5 * delay);
+            rental.Penalty = penalty;
         }
         else
         {
@@ -63,12 +62,12 @@ public class RentalService : IRentalService
 
     public List<Rental> GetUserRentals(User user)
     {
-        return _rentals.Where(r => r.User == user && !r.isCancelled).ToList();
+        return _rentals.Where(r => r.User == user).ToList();
     }
 
-    public List<Rental> GetExpiredRentals(DateTime actualReturn)
+    public List<Rental> GetExpiredRentals()
     {
-        return _rentals.Where(r => r.To > actualReturn).ToList();
+        return _rentals.Where(r => r.IsExpired).ToList();
     }
 
     public void GenerateRaport()
