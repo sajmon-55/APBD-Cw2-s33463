@@ -10,4 +10,6 @@ public abstract class User(string firstName, string lastName, UserType userType)
     public string FirstName { get; } = firstName;
     public string LastName { get; } = lastName;
     public UserType UserType { get; } = userType;
+
+    public abstract int GetMaxRentals();
 }
