@@ -11,3 +11,5 @@ Ma to na celu sensownie pokazać za co każda klasa odpowiada. Przykładem niski
 3. Sprzężenie:
    - Podczas tworzenia nowego wypożyczenia jako argument podaję się nie lapotp, czy mysz, tylko argumentem jest Equipment. Ponieważ dzięki temu gdybyśmy w przuszłosći dodali nowy sprzęt, nie musimy modyfikować całej
    logiki wypożyczenia, System opiera się na uniwersalonsci klasy abstrakcyjnej, a nie na detalach poszczególnego sprzetu. Również interfejsy sprawiają, że w wyjątkowych sytuacjach możemy nadpisać naszą metode w Program.cs
+4. Decyzja o podziale klas:
+   - Najprościej można powiedzieć, że z czystej wygody, projekt sprawia wrażenie posortowanego według gatunków regału z książkami, łatwiej się w nim odnaleźść. A także czytelność i nazewnictwo pozwalają szybko dostać się do właściwego pliku w mrugnięciu oka
