@@ -53,6 +53,7 @@ public class RentalService : IRentalService
             var delay = (date - rental.To).Days;
             decimal penalty = (decimal)(5.5 * delay);
             rental.Penalty = penalty;
+            Console.WriteLine("Penalty: " + rental.Penalty);
         }
         else
         {
