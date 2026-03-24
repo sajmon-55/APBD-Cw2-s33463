@@ -12,5 +12,5 @@ public interface IEquipmentService
     public List<Equipment> GetAvailable();
     public void SetAvailable(int equipmentId);
     public void SetUnavailable(int equipmentId);
-    
+    public void DamagedEquipment(int equipmentId);
 }

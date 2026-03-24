@@ -43,4 +43,16 @@ public class EquipmentService : IEquipmentService
     {
         GetEquipmentById(equipmentId).Status = EquipmentStatus.Unavailable;
     }
+
+    public void DamagedEquipment(int equipmentId)
+    {
+        if (GetEquipmentById(equipmentId).IsDamaged)
+        {
+            GetEquipmentById(equipmentId).Status = EquipmentStatus.Unavailable;
+        }
+        else
+        {
+            Console.WriteLine($"{GetEquipmentById(equipmentId).Name} is not damaged");
+        }
+    }
 }
