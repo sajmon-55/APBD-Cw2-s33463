@@ -73,6 +73,16 @@ public class RentalService : IRentalService
 
     public void GenerateRaport()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("***Raport started: ***");
+        foreach (var rental in _rentals)
+        {
+            Console.WriteLine($"ID: {rental.Id} | " +
+                              $"USER: {rental.User.Id}-{rental.User.FirstName} {rental.User.LastName}-{rental.User.UserType}| " +
+                              $"EQ: {rental.Equipment.Id} - {rental.Equipment.Type}-{rental.Equipment.Name} | " +
+                              $"Status: {rental.Equipment.Status} | " +
+                              $"RENTAL DAYS: {rental.RentalDays.ToString()} | " +
+                              $"PENALTY: {rental.Penalty} | " +
+                              $"HAS ENDED: {rental.HasEnded} |");
+        }
     }
 }
