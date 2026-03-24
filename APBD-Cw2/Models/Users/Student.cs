@@ -4,5 +4,5 @@ namespace APBD_Cw2.Models.Users;
 
 public class Student(string firstName, string lastName) : User (firstName, lastName, UserType.Student)
 {
-    
+    public override int GetMaxRentals() => 2;
 }
