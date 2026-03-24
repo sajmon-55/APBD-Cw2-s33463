@@ -10,6 +10,7 @@ public class EquipmentService : IEquipmentService
     
     public void AddEquipment(Equipment equipment)
     {
+        equipment.Status = EquipmentStatus.Unavailable;
         _equipments.Add(equipment);
     }
 
